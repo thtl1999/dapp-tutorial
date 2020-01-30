@@ -1,18 +1,19 @@
 async function display_addr(person){
-    const contract_addr = '0x9Cb01B2D00F8eB0BABD65515a260E085cC03aD1d'
+    const contract_addr = '0x8dc3A51DE3eBCddD9379e51B453232Edb05B2d20'
 
     const abi_data = await fetch('abi.json')
     const abi = await abi_data.json()
 
-    const contract = web3.eth.contract(abi).at(contract_addr)
+    const web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io'))
+    const contract = new web3.eth.Contract(abi, contract_addr)
 
     if (person === 'A'){
-        contract.a_addr({},function(err, res){
+        contract.methods.a_addr().call({},function(err, res){
             change_result(res)
         })
     }
     else if (person === 'B'){
-        contract.b_addr({},function(err, res){
+        contract.methods.b_addr().call({},function(err, res){
             change_result(res)
         })
     }
